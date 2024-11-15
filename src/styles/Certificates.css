@@ -1,76 +1,86 @@
 .certificates-container {
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    max-width: 800px;
-  }
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 800px;
+}
 
+.section-title {
+  text-align: center;
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 20px;
+}
 
-  .section-title {
-    text-align: center;
-    font-size: 24px;
-    color: #333;
-    margin-bottom: 20px;
-  }
+.certificates-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
 
- 
-  .certificates-table {
-    width: 100%;
-    border-collapse: collapse;
-    direction: ltr;
-  }
+.certificates-table th,
+.certificates-table td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: center;
+}
 
-  .certificates-table th, .certificates-table td {
-    border: 1px solid #ddd;
-    padding: 10px;
-    text-align: center;
-  }
+.certificates-table th {
+  background-color: #333;
+  color: white;
+  font-weight: bold;
+}
 
-  .certificates-table th {
-    background-color: #333;
-    color: white;
-    font-weight: bold;
-  }
+.notes {
+  color: red;
+  font-weight: bold;
+}
 
- 
-  .notes {
-    color: red;
-    font-weight: bold;
-  }
+.print-request-btn {
+  background-color: #2084ff;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
 
- 
-  .print-request-btn {
-    background-color: #2084ff;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
+.print-request-btn:hover {
+  background-color: #0056b3;
+}
 
-  .print-request-btn:hover {
-    background-color: #0056b3;
-  }
+.whatsapp-contact {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #e6ffe6;
+  border: 1px solid #cce5cc;
+  border-radius: 8px;
+}
 
- 
-  .navigation-links {
-    margin-top: 20px;
-    text-align: center;
-  }
+.whatsapp-contact p {
+  margin-right: 10px;
+  font-size: 16px;
+  color: #333;
+}
 
-  .navigation-links a {
-    color: #2084ff;
-    text-decoration: none;
-    font-size: 16px;
-    padding: 8px 16px;
-    border-radius: 5px;
-    transition: background-color 0.3s, color 0.3s;
-  }
+.whatsapp-contact a {
+  display: flex;
+  align-items: center;
+  color: #25d366;
+  font-weight: bold;
+  text-decoration: none;
+  font-size: 18px;
+}
 
-  .navigation-links a:hover {
-    background-color: #f0f0f0;
-    color: #0056b3;
-  }
+.whatsapp-icon {
+  width: 24px;
+  height: 24px;
+  margin-right: 8px;
+  color: #25D366;
+}

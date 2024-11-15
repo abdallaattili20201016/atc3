@@ -2,10 +2,19 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaBell } from 'react-icons/fa';
+import Calendar from 'react-calendar';
+/*import 'react-calendar/dist/Calendar.css'; // calendar styles*/
 import '../../styles/Styles.css';
 import Navbar from '../../components/Navbar';
 
 const TraineeDashboard = () => {
+
+    const [date, setDate] = useState(new Date());
+
+    const onChange = (newDate) => {
+        setDate(newDate);
+    };
+
     const [drawerOpen, setDrawerOpen] = useState(false);
     const toggleDrawer = () => {
         setDrawerOpen(!drawerOpen);
@@ -18,16 +27,19 @@ const TraineeDashboard = () => {
         localStorage.clear();
         navigate('/');
     };
+    const [posts, setPosts] = useState([
+        { id: 1, author: "Ammar", title: "New Course Available!", content: "We’ve added a new course on Data Science. Enroll now!" },
+        { id: 2, author: "Yousef", title: "Assignment Due", content: "Remember to submit your assignments by the end of the week." },
+    ]);
+
+
 
     return (
         <>
             <div>
                 <Navbar />
-                <div >
-                    <FaBell className="notification-icon" />
-                </div>
             </div>
-                
+
             <div className="ViewPage">
                 <section className="welcome-section">
                     <h2>Welcome, {traineeName}!</h2>
@@ -35,15 +47,30 @@ const TraineeDashboard = () => {
 
                 {/* Information Section */}
                 <section className="info-section">
+
                     <div className="info-box">
-                        <h3>Personal Info</h3>
-                        <p>Email: abd20201016@std.psut.edu.jo</p>
-                        <p>Enrolled Courses: 5</p>
+                        {/* Stay Updated Section */}
+                       
+                            <h3>Stay Updated</h3>
+                            <div className="posts-container">
+                                {posts.map((post) => (
+                                    <div key={post.id} className="information">
+                                        <h4>{post.title}</h4>
+                                        <p>{post.content}</p>
+                                        <small>Posted by: {post.author}</small>
+                                    </div>
+                                ))}
+                            </div>
+                        
                     </div>
                     <div className="info-box">
-                        <h3>Progress</h3>
-                        <p>Completed Courses: 2</p>
-                        <p>Pending Certificates: 1</p>
+                        <h3>calendar</h3>
+                        <div className='post-card'>
+                            {  <Calendar
+                                style={{color: '#56acbb' , backgroundColor: '#56acbb', borderRadius: '8px', padding: '10px' }}
+                            />}
+
+                        </div>
                     </div>
                 </section>
 

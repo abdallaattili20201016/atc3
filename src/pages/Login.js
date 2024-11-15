@@ -1,67 +1,67 @@
 // src/Login.js
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
-import '../styles/Styles.css';  // Adjust path to point to styles folder
-
+import { Link, useNavigate } from 'react-router-dom';
+import '../styles/Styles.css';
 
 const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const navigate = useNavigate(); // Initialize navigate function
+    const navigate = useNavigate();
 
     const handleLogin = (e) => {
         e.preventDefault();
         console.log('Logging in:', { username, password });
 
-        // Simulate login success and redirect to dashboard
-        navigate('/dashboard');
+        // Determine role based on username prefix
+        if (username.startsWith('1')) {
+            navigate('/admin'); // Redirect to admin dashboard
+        } else if (username.startsWith('2')) {
+            navigate('/dashboard'); // Redirect to trainee dashboard
+        } else if (username.startsWith('3')) {
+            navigate('/trainer-dashboard'); // Redirect to trainer dashboard
+        } else {
+            alert('Invalid username prefix. Please enter a correct username.');
+        }
     };
 
     return (
         <>
-
-            {/* Login form */}
-            <div class="allContent">
-                <div class="fancyBG">
-                    <img src="/logoo.jpg" alt="Logo" class="logo-image" />
-                    <span class="header-text">Academic<br></br><br></br>Training<br></br><br></br> Center</span>
+            <div className="allContent">
+                <div className="fancyBG">
+                    <img src="/logoo.jpg" alt="Logo" className="logo-image" />
+                    <span className="header-text">
+                        Academic<br /><br />Training<br /><br /> Center
+                    </span>
                 </div>
-                <div class="contentDiv">
+                <div className="contentDiv">
                     <div className="login-container">
-                        {/* Header with logo and text */}
-                        <h2 class="loginTitle">Login</h2>
+                        <h2 className="loginTitle">Login</h2>
                         <form onSubmit={handleLogin}>
                             <div className="form-group">
-                                <label class="loginLabel">
-                                    Username:
-                                </label>
+                                <label className="loginLabel">Username:</label>
                                 <input
                                     type="text"
                                     name="username"
-                                    class="loginInput"
+                                    className="loginInput"
                                     value={username}
                                     onChange={(e) => setUsername(e.target.value)}
                                     placeholder="Enter your username"
                                     required
                                 />
 
-                                <label class="loginLabel">
-                                    Password:
-                                </label>
+                                <label className="loginLabel">Password:</label>
                                 <input
                                     type="password"
                                     name="password"
-                                    class="loginInput"
+                                    className="loginInput"
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
                                     placeholder="Enter your password"
                                     required
                                 />
-
                             </div>
-                            <button type="submit" class=".btn-primary">Login</button>
+                            <button type="submit" className="btn-primary">Login</button>
 
-                            {/* Additional links */}
                             <div className="extra-buttons">
                                 <Link to="/forgot-password" className="forgot-password">
                                     Forgot Password?
@@ -79,6 +79,3 @@ const Login = () => {
 };
 
 export default Login;
-
-
-

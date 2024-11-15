@@ -1,0 +1,119 @@
+/* src/styles/Installments.css */
+
+.installments-container {
+    margin: 20px auto;
+    padding: 20px;
+    max-width: 90%;
+    width: 800px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .section-title {
+    font-size: 24px;
+    color: #e60023;
+    margin-bottom: 20px;
+  }
+  
+  .installments-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+  }
+  
+  .installments-table th,
+  .installments-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  .installments-table th {
+    background-color: #333;
+    color: white;
+  }
+  
+  .status-paid {
+    color: green;
+    font-weight: bold;
+  }
+  
+  .status-unpaid {
+    color: red;
+    font-weight: bold;
+  }
+  
+  .payment-summary {
+    margin-top: 20px;
+    font-size: 16px;
+  }
+  
+  .payment-summary p {
+    margin: 5px 0;
+  }
+  
+  .payment-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #e60023;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+  }
+  
+  .payment-button:hover {
+    background-color: #c7001e;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .installments-container {
+      width: 100%;
+      padding: 15px;
+    }
+  
+    .section-title {
+      font-size: 20px;
+    }
+  
+    .installments-table th,
+    .installments-table td {
+      padding: 8px;
+      font-size: 14px;
+    }
+  
+    .payment-summary {
+      font-size: 14px;
+    }
+  
+    .payment-button {
+      font-size: 14px;
+      padding: 8px 15px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .section-title {
+      font-size: 18px;
+    }
+  
+    .installments-table th,
+    .installments-table td {
+      padding: 6px;
+      font-size: 12px;
+    }
+  
+    .payment-summary {
+      font-size: 12px;
+    }
+  
+    .payment-button {
+      font-size: 12px;
+      padding: 6px 12px;
+    }
+  }

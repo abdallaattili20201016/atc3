@@ -27,7 +27,7 @@ const Navbar = () => {
                         <li class="navItem"><a href="/Messages">Messages</a></li>
                         <li class="navItem"><a href="/courses">Courses</a></li>
                         <li class="navItem"><a href="/certificates">Certificates</a></li>
-                        <li class="navItem"><a href="/feedback">Feedback</a></li>
+                        <li class="navItem"><a href="/PaymentPage">Payment</a></li>
                         <li class="navItem"><a href="/about-us">About Us</a></li>
                         <li class="navItem"><a href="/contact-us">Contact Us</a></li>
                         <li class="navItem"><a href="/Calendar">Calendar</a></li>

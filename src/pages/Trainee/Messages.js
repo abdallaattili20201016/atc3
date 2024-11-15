@@ -1,75 +1,96 @@
-// src/pages/Messages.js
 import React, { useState } from 'react';
-import '../../styles/Styles.css'; 
-import Navbar from '../../components/Navbar';
+import { MessageList, Input, ChatList } from 'react-chat-elements';
+import 'react-chat-elements/dist/main.css';
 import '../../styles/Messages.css';
-const Messages = () => {
-    const [selectedContact, setSelectedContact] = useState(null);
-    const [newMessage, setNewMessage] = useState('');
 
-    // Sample data for received messages and contacts
-    const receivedMessages = [
-        { id: 1, sender: 'Admin Yusef', content: 'Hello, how can I help?', timestamp: '10:30 AM' },
-        { id: 2, sender: 'Trainer Ammar', content: 'Your last assignment was...', timestamp: 'Yesterday' },
-        { id: 3, sender: 'Admin ....', content: 'Meeting is rescheduled to...', timestamp: '2 days ago' },
-    ];
+function Messages() {
+  // Sample contact list
+  const [contacts] = useState([
+    { id: 1, title: 'John Doe', subtitle: 'Hey there!', date: new Date() },
+    { id: 2, title: 'Jane Smith', subtitle: 'Hello!', date: new Date() },
+    { id: 3, title: 'Bob Johnson', subtitle: 'What’s up?', date: new Date() },
+  ]);
 
-    const contacts = ['Admin  Yusef', 'Trainer Ammar', 'Admin ....'];
+  // Message history by contact ID
+  const [messages, setMessages] = useState({
+    1: [{ position: 'left', type: 'text', text: 'Hello John!', date: new Date() }],
+    2: [{ position: 'left', type: 'text', text: 'Hello Jane!', date: new Date() }],
+    3: [{ position: 'left', type: 'text', text: 'Hello Bob!', date: new Date() }],
+  });
 
-    const handleContactClick = (contact) => {
-        setSelectedContact(contact);
+  const [currentContactId, setCurrentContactId] = useState(null);
+  const [inputValue, setInputValue] = useState('');
+
+  const handleContactClick = (contactId) => {
+    setCurrentContactId(contactId);
+  };
+
+  const handleSend = () => {
+    if (inputValue.trim() === '' || currentContactId === null) return;
+
+    const newMessage = {
+      position: 'right',
+      type: 'text',
+      text: inputValue,
+      date: new Date(),
     };
 
-    const handleSendMessage = () => {
-        if (newMessage.trim()) {
-            alert(`Message sent to ${selectedContact}: ${newMessage}`);
-            setNewMessage(''); // Clear the input after sending
-        }
-    };
+    // Messagesend the new message to the existing messages of the current contact
+    setMessages((prevMessages) => ({
+      ...prevMessages,
+      [currentContactId]: [...(prevMessages[currentContactId] || []), newMessage],
+    }));
 
-    return (
-      <>
-            <Navbar/>
-     
-        <div className="viewPage">
-            {/* Left side: Received Messages */}
-            <div className="info-box">
-                <h3>Inbox</h3>
-                {receivedMessages.map((message) => (
-                    <div key={message.id} className="conversation-card">
-                        <h4>{message.sender}</h4>
-                        <p>{message.content}</p>
-                        <small>{message.timestamp}</small>
-                    </div>
-                ))}
+    setInputValue('');
+  };
+
+  return (
+    <div className="Messages-container">
+      {/* Contact List Panel */}
+      <div className="contact-list-panel">
+        <h2>Contacts</h2>
+        <ChatList
+          className="chat-list"
+          dataSource={contacts.map(contact => ({
+            ...contact,
+            onClick: () => handleContactClick(contact.id),
+          }))}
+        />
+      </div>
+
+      {/* Chat Window */}
+      <div className="chat-window">
+        {currentContactId ? (
+          <>
+            <div className="messages-container">
+              <MessageList
+                className="message-list"
+                lockable={true}
+                toBottomHeight={'100%'}
+                dataSource={messages[currentContactId] || []}
+              />
             </div>
-
-            {/* Right side: Contacts and Messaging */}
-            <div className="contact-section">
-                <h3>Contacts</h3>
-                <ul className="contact-list">
-                    {contacts.map((contact, index) => (
-                        <li key={index} onClick={() => handleContactClick(contact)}>
-                            {contact}
-                        </li>
-                    ))}
-                </ul>
-
-                {selectedContact && (
-                    <div className="message-input-section">
-                        <h4>Message to: {selectedContact}</h4>
-                        <textarea
-                            value={newMessage}
-                            onChange={(e) => setNewMessage(e.target.value)}
-                            placeholder="Type your message here..."
-                        ></textarea>
-                        <button onClick={handleSendMessage}>Send</button>
-                    </div>
-                )}
+            <div className="input-container">
+              <Input
+                placeholder="Type a message..."
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
+                rightButtons={
+                  <button onClick={handleSend} className="send-button">
+                    Send
+                  </button>
+                }
+              />
             </div>
-        </div>
-        </>
-    );
-};
+          </>
+        ) : (
+          <div className="select-contact-message">
+            <p>Select a contact to start chatting</p>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
 
 export default Messages;

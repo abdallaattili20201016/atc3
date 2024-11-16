@@ -9,6 +9,7 @@ import Certificates from './pages/Trainee/Certificates';
 import Messages from './pages/Trainee/Messages';
 import Calendar from './pages/Calendar'; // Adjust the path if necessary
 import PaymentPage from './pages/Trainee/PaymentPage';
+import ViewProfileAdmin from './pages/Admin/ViewProfileAdmin';
 import AdminDashboard from './pages/Admin/AdminDashboard';
 import UserManagement from './pages/Admin/Users';
 import CourseManagement from './pages/Admin/CourseManagement';
@@ -33,6 +34,7 @@ const routes = [
   { path: '/admin/CourseManagement', element: <CourseManagement /> },
   { path: '/admin/Announcements', element: <Announcements /> },
   { path: '/admin/Reports', element: <Reports /> },
+  { path: '/ViewProfileAdmin', element:<ViewProfileAdmin/>},
 
 
 ];

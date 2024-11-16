@@ -1,68 +1,125 @@
-import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+// src/pages/Admin/CourseManagement.js
+import React, { useState } from 'react';
+import AdminNavbar from '../../components/AdminNavbar';
+import CourseModal from '../../components/CourseModal';
 import '../../styles/Styles.css';
-import Navbar from '../../components/Navbar';
-import '../../styles/Lectures.css';
-import '../../styles/Styles.css';
 
-const Courses = () => {
-    const navigate = useNavigate();
+const CourseManagement = () => {
+  const [courses, setCourses] = useState([
+    {
+      id: 1,
+      name: "React Basics",
+      trainer: "John Doe",
+      startDate: "2024-11-20",
+      endDate: "2024-12-20",
+      status: "Active",
+      students: 20,
+    },
+    {
+      id: 2,
+      name: "Data Science",
+      trainer: "Jane Smith",
+      startDate: "2024-11-25",
+      endDate: "2024-12-25",
+      status: "Inactive",
+      students: 15,
+    },
+  ]);
 
-    // Mock Data for enrolled and available courses
-    const enrolledCourses = [
-        { id: 1, title: 'React Basics', description: 'Learn the basics of React.' },
-        { id: 2, title: 'Advanced JavaScript', description: 'Deep dive into JS concepts.' },
-    ];
+  const [filter, setFilter] = useState("");
+  const [modal, setModal] = useState(false);
+  const [editCourse, setEditCourse] = useState(null);
 
-    const availableCourses = [
-        { id: 3, title: 'Node.js Fundamentals', description: 'Introduction to Node.js.', status: 'Register', buttonLabel: 'Registration', buttonColor: 'blue' },
-        { id: 4, title: 'Database Management', description: 'Learn SQL and NoSQL.', status: 'Register', buttonLabel: 'Registration', buttonColor: 'blue' },
-        { id: 5, title: 'UI/UX Design', description: 'Design engaging interfaces.', status: 'Register', buttonLabel: 'Registration', buttonColor: 'blue' },
-        { id: 6, title: 'C++', status: 'Completed', buttonLabel: 'Finish coures', buttonColor: 'gray' },
-        { id: 7, title: 'Modern web applications', status: 'Completed', buttonLabel: 'Finish coures', buttonColor: 'gray' },
-        { id: 8, title: 'Information security', status: 'Completed', buttonLabel: 'Finish coures', buttonColor: 'gray' },
-        { id: 9, title: 'cisco', status: 'Pending', buttonLabel: 'waiting', buttonColor: 'red' },
-        { id: 10, title: 'project management', status: 'Register', buttonLabel: 'Registration', buttonColor: 'blue' },
-    ];
+  const handleAddCourse = () => {
+    setEditCourse(null); // Reset for adding a new course
+    setModal(true);
+  };
 
-    const handleBack = () => navigate('/dashboard'); // Navigate back to dashboard
+  const handleEditCourse = (course) => {
+    setEditCourse(course); // Set the course to be edited
+    setModal(true);
+  };
 
-    return (
-        <>
-            <Navbar />
-            <div className="ViewPage" >
-                <h2>Current courses</h2>
-                <div className="courses-grid">
-                    {enrolledCourses.map((course) => (
-                        <div className="dashboard-card" key={course.id}>
-                            <h3>{course.title}</h3>
-                            <p>{course.description}</p>
-                            <button className="course-button gray">Participant in the course</button>
-                        </div>
-                    ))}
-                </div>
+  const handleDeleteCourse = (id) => {
+    if (window.confirm("Are you sure you want to delete this course?")) {
+      setCourses(courses.filter((course) => course.id !== id));
+    }
+  };
 
-                <h2>Available Courses</h2>
-                <div className="courses-grid">
-                    {availableCourses.map((course) => (
-                        <div className="dashboard-card" key={course.id}>
-                            <h3>{course.title}</h3>
-                            <p>
-                                {course.status === 'Completed'
-                                    ? 'It has been studied'
-                                    : course.status === 'Pending'
-                                    ? 'waiting'
-                                    : 'Start the course'}
-                            </p>
-                            <button className={`course-button ${course.buttonColor}`}>
-                                {course.buttonLabel || 'Registration'}
-                            </button>
-                        </div>
-                    ))}
-                </div>
-            </div>
-        </>
-    );
+  const handleSaveCourse = (newCourse) => {
+    if (editCourse) {
+      // Update existing course
+      setCourses(
+        courses.map((course) =>
+          course.id === editCourse.id ? { ...editCourse, ...newCourse } : course
+        )
+      );
+    } else {
+      // Add new course
+      setCourses([...courses, { id: Date.now(), ...newCourse }]);
+    }
+    setModal(false);
+  };
+
+  return (
+    <>
+      <AdminNavbar />
+      <div className="viewPage">
+        <h1>Course Management</h1>
+        <div className="actions">
+          <input
+            type="text"
+            placeholder="Search courses..."
+            value={filter}
+            onChange={(e) => setFilter(e.target.value)}
+          />
+          <button className="edit-btn" onClick={handleAddCourse}>
+            Add Course
+          </button>
+        </div>
+        <table className="courses-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Trainer</th>
+              <th>Start Date</th>
+              <th>End Date</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {courses
+              .filter((course) =>
+                course.name.toLowerCase().includes(filter.toLowerCase())
+              )
+              .map((course) => (
+                <tr key={course.id}>
+                  <td>{course.name}</td>
+                  <td>{course.trainer}</td>
+                  <td>{course.startDate}</td>
+                  <td>{course.endDate}</td>
+                  <td>{course.status}</td>
+                  <td>
+                    <button onClick={() => handleEditCourse(course)}>Edit</button>
+                    <button onClick={() => handleDeleteCourse(course.id)}>
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))}
+          </tbody>
+        </table>
+        {modal && (
+          <CourseModal
+            course={editCourse}
+            onSave={handleSaveCourse}
+            onClose={() => setModal(false)}
+          />
+        )}
+      </div>
+    </>
+  );
 };
 
-export default Courses;
+export default CourseManagement;

@@ -550,6 +550,34 @@ input {
     text-decoration: underline;
 }
 
+
+.button-group {
+    margin-bottom: 15px;
+    display: flex;
+    gap: 10px;
+  }
+  
+  .back-button, .print-button {
+    padding: 10px 15px;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+    color: white;
+    background-color: #007bff;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+  }
+  
+  .back-button:hover, .print-button:hover {
+    background-color: #0056b3;
+  }
+
+  .courses-table {
+    width: 100%; /* Stretch to full width */
+    height: 100%; /* Allow content to take available height */
+    border-collapse: collapse;
+    margin-top: 15px;
+  }
 /* Drawer Styling */
 
 
@@ -981,7 +1009,7 @@ li.navItem {
     position: absolute;
     top: 5%;
     left: 25%;
-    padding-left: 15%;
+    /* padding-left: 15%; */
     padding-right: 10%;
     padding-bottom: 20px;
 }
@@ -1326,3 +1354,39 @@ i {
     background: #56acbb;
     border-radius: 8px;
   } */
+
+  .announcements-container {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 20px;
+  }
+  
+  .announcements-container h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  .announcements-container ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .announcements-container li {
+    margin-bottom: 10px;
+    font-size: 14px;
+  }
+  
+  .announcements-container .view-all-link {
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 14px;
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .announcements-container .view-all-link:hover {
+    text-decoration: underline;
+  }
+  

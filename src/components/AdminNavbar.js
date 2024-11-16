@@ -18,21 +18,22 @@ const Navbar = () => {
 
     return (
         <div className={`sideNav  ${drawerOpen ? 'open' : ''}`}
-        style={{
-            background: 'linear-gradient(to bottom right, #586daf, #4f4f4f)',
-          }}>
+            style={{
+                background: 'linear-gradient(to bottom right, #586daf, #4f4f4f)',
+            }}>
             <div className="logo">
                 <h1 className="txtLogo"><a href="../Admin/AdminDashboard" className="txtLogo">Academic Training Center</a></h1>
             </div>
             <div class="listOfItems">
-                    <ul class="mainUnorderdList">
-                        <li class="navItem"><a href="/Admin/Announcements">Profile Settings</a></li>
-                        <li class="navItem"><a href="/Admin/CourseManagement">Course Management</a></li>
-                        <li class="navItem"><a href="/Admin/Reports">Reports</a></li>
-                        <li class="navItem"><a href="/Admin/Users">Users</a></li>
-                        <li class="navItem"><a href="/login">logout</a></li>
-                    </ul>
-                </div>
+                <ul class="mainUnorderdList">
+                    <li class="navItem"><a href="/ViewProfileAdmin">Profile Settings</a></li>
+                    <li class="navItem"><a href="/Admin/Announcements">Announcements</a></li>
+                    <li class="navItem"><a href="/Admin/CourseManagement">Course Management</a></li>
+                    <li class="navItem"><a href="/Admin/Reports">Reports</a></li>
+                    <li class="navItem"><a href="/Admin/Users">Users</a></li>
+                    <li class="navItem"><a href="/login">logout</a></li>
+                </ul>
+            </div>
 
         </div>
     );

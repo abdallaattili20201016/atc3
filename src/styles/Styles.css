@@ -1350,10 +1350,7 @@ i {
         display: none;
     }
 }
-/* .react-calendar {
-    background: #56acbb;
-    border-radius: 8px;
-  } */
+
 
   .announcements-container {
     background-color: #f9f9f9;
@@ -1572,11 +1569,7 @@ i {
 
 
   
-  .calendar-container {
-    padding: 20px;
-    background: #f4f4f4;
-    border-radius: 8px;
-  }
+
   
   .activity-section,
   .upcoming-events-section {
@@ -1621,4 +1614,77 @@ i {
   .action-btn:hover {
     background: #0056b3;
   }
+
+
+
+
+  /* Calendar Container */
+.calendar-container {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+  }
+  
+  /* Event Date Highlighting */
+  .react-calendar__tile.event-date {
+    /* background: #4c669f !important; */
+    /* color: #4c669f !important; */
+    border-radius: 5px;
+  }
+  
+  /* Adjust Calendar Styles */
+  .react-calendar {
+    background-color: #ffffff !important;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .react-calendar__tile--active {
+    background: #464b47 !important;
+    color: rgba(61, 53, 53, 0) !important;
+    border-radius: 5px;
+  }
+  
+  /* Event Details Section */
+  .event-details {
+    flex: 1;
+    padding: 20px;
+    background: #4c669f !important;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .event-details h3 {
+    margin-bottom: 10px;
+    font-size: 1.5em;
+  }
+  
+  .event-details ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .event-details li {
+    margin-bottom: 10px;
+    background: #4c669f !important;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  .react-calendar__tile abbr {
+    color: #4c669f; /* Change the color of the date numbers */
+    font-weight: bold; /* Make the numbers bold */
+    text-decoration: none; /* Remove the underline (if present) */
+  }
+  
+  .react-calendar__tile--active abbr {
+    color: #4c669f !important; 
+  }
+  
+  .react-calendar__tile--now abbr {
+    color: #1a1f64 !important; 
+    font-weight: bold;
+  }
+  
+  
   

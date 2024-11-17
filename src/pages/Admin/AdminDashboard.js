@@ -48,7 +48,6 @@ const AdminDashboard = () => {
         {/* Welcome Section */}
         <section className="welcome-section">
           <h2>Welcome, {AdminName}!</h2>
-          <p>Here's an overview of the platform at a glance.</p>
         </section>
 
         {/* Quick Insights Section */}
@@ -74,35 +73,38 @@ const AdminDashboard = () => {
         {/* Announcements and Calendar */}
         <section className="info-section">
           {/* Announcements Div */}
-          <div className="info-box">
+          <div className="posts-container">
             <h2>Announcements</h2>
             <DashboardAnnouncements announcements={announcements} />
-            <Link to="/Admin/Announcements" className="view-all-link">View All Announcements</Link>
           </div>
 
           {/* Calendar Section */}
-          <div className="info-box">
+          <div className="calendar-container">
             <h2>Calendar</h2>
-            <div className="calendar-container">
+            <div className="react-calendar">
               <Calendar />
             </div>
           </div>
         </section>
 
         {/* Recent Activity Section */}
-        <section className="activity-section">
+        <div className="posts-container">
           <h2>Recent Activity</h2>
-          <ul className="activity-feed">
+          <div className="information">
             {recentActivity.map((activity, index) => (
-              <li key={index}>{activity}</li>
+              <h4>
+                <li key={index}>
+                  <p>{activity}</p>
+                </li>
+              </h4>
             ))}
-          </ul>
-        </section>
+          </div>
+        </div>
 
         {/* Upcoming Events Section */}
-        <section className="upcoming-events-section">
+        <section className="announcements-container">
           <ul className="info-box">
-          <h2>Upcoming Events</h2>
+            <h2>Upcoming Events</h2>
             {upcomingEvents.map((event, index) => (
               <li key={index}>{event}</li>
             ))}

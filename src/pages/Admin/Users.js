@@ -12,10 +12,29 @@ const UsersPage = () => {
   ]);
 
   const [roleFilter, setRoleFilter] = useState("All");
+  const [isOverlayVisible, setIsOverlayVisible] = useState(false); // State to show/hide overlay
+  const [newUser, setNewUser] = useState({ name: "", role: "Trainer", email: "", phone: "" });
 
   // Filter users based on role
   const filteredUsers =
     roleFilter === "All" ? users : users.filter((user) => user.role === roleFilter);
+
+  // Handle input change for the new user
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setNewUser({ ...newUser, [name]: value });
+  };
+
+  // Handle adding a new user
+  const handleAddUser = () => {
+    if (newUser.name && newUser.role && newUser.email && newUser.phone) {
+      setUsers([...users, { ...newUser, id: Date.now(), date: new Date().toISOString().split("T")[0] }]);
+      setIsOverlayVisible(false); // Hide the overlay after adding
+      setNewUser({ name: "", role: "Trainer", email: "", phone: "" });
+    } else {
+      alert("Please fill out all fields correctly!");
+    }
+  };
 
   return (
     <>
@@ -49,8 +68,72 @@ const UsersPage = () => {
             ))}
           </tbody>
         </table>
+
+        {/* Full-Page Overlay */}
+        {isOverlayVisible && (
+          <div className="overlay">
+            <div className="overlay-content">
+              <button className="close-button" onClick={() => setIsOverlayVisible(false)}>
+                ✖
+              </button>
+              <h2>Add New User</h2>
+              <form>
+                <label>
+                  Name:
+                  <input
+                    type="text"
+                    name="name"
+                    value={newUser.name}
+                    onChange={handleInputChange}
+                    required
+                  />
+                </label>
+                <label>
+                  Role:
+                  <select
+                    name="role"
+                    value={newUser.role}
+                    onChange={handleInputChange}
+                    required
+                  >
+                    <option value="Trainer">Trainer</option>
+                    <option value="Trainee">Trainee</option>
+                  </select>
+                </label>
+                <label>
+                  Email:
+                  <input
+                    type="email"
+                    name="email"
+                    value={newUser.email}
+                    onChange={handleInputChange}
+                    required
+                  />
+                </label>
+                <label>
+                  Phone:
+                  <input
+                    type="tel"
+                    name="phone"
+                    value={newUser.phone}
+                    onChange={handleInputChange}
+                    required
+                  />
+                </label>
+              </form>
+              <div className="form-actions">
+                <button className="primary-button" onClick={handleAddUser}>
+                  Save
+                </button>
+                <button className="secondary-button" onClick={() => setIsOverlayVisible(false)}>
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
         <div className="info-section">
-        <div className="info-box">
+          <div className="info-box">
             <button className="edit-btn" onClick={() => setRoleFilter("All")}>
               View All Users
             </button>
@@ -60,8 +143,11 @@ const UsersPage = () => {
             <button className="edit-btn" onClick={() => setRoleFilter("Trainee")}>
               View All Trainees
             </button>
+            <button className="edit-btn" onClick={() => setIsOverlayVisible(true)}>
+              Add User
+            </button>
           </div>
-          </div>
+        </div>
       </div>
     </>
   );

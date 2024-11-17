@@ -1,7 +1,7 @@
 // src/pages/Admin/AnnouncementsPage.js
 import React, { useState } from 'react';
 import AdminNavbar from '../../components/AdminNavbar';
-import AnnouncementModal from '../../components/AnnouncementModal';
+import WarningOverlay from '../../components/WarningOverlay';
 import '../../styles/Styles.css';
 
 const AnnouncementsPage = () => {
@@ -27,38 +27,65 @@ const AnnouncementsPage = () => {
   ]);
 
   const [filter, setFilter] = useState('');
-  const [modalOpen, setModalOpen] = useState(false);
+  const [isOverlayVisible, setIsOverlayVisible] = useState(false);
   const [editingAnnouncement, setEditingAnnouncement] = useState(null);
+  const [newAnnouncement, setNewAnnouncement] = useState({
+    title: '',
+    description: '',
+    date: '',
+  });
+
+  /*** WarningOverlay State and Handlers (GROUPED) ***/
+  const [warningOverlayVisible, setWarningOverlayVisible] = useState(false);
+  const [announcementToDelete, setAnnouncementToDelete] = useState(null);
+
+  const handleDeleteRequest = (announcementId) => {
+    setAnnouncementToDelete(announcementId);
+    setWarningOverlayVisible(true);
+  };
+
+  const handleDeleteConfirm = () => {
+    setAnnouncements(announcements.filter((a) => a.id !== announcementToDelete));
+    setWarningOverlayVisible(false);
+    setAnnouncementToDelete(null);
+  };
+
+  const handleDeleteCancel = () => {
+    setWarningOverlayVisible(false);
+    setAnnouncementToDelete(null);
+  };
+  /*** End WarningOverlay State and Handlers ***/
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setNewAnnouncement({ ...newAnnouncement, [name]: value });
+  };
 
   const handleAdd = () => {
     setEditingAnnouncement(null);
-    setModalOpen(true);
+    setNewAnnouncement({ title: '', description: '', date: '' });
+    setIsOverlayVisible(true);
   };
 
   const handleEdit = (announcement) => {
     setEditingAnnouncement(announcement);
-    setModalOpen(true);
+    setNewAnnouncement(announcement);
+    setIsOverlayVisible(true);
   };
 
-  const handleDelete = (id) => {
-    if (window.confirm('Are you sure you want to delete this announcement?')) {
-      setAnnouncements(announcements.filter((announcement) => announcement.id !== id));
-    }
-  };
-
-  const handleSave = (announcement) => {
+  const handleSave = () => {
     if (editingAnnouncement) {
       // Update existing announcement
       setAnnouncements(
         announcements.map((a) =>
-          a.id === editingAnnouncement.id ? { ...editingAnnouncement, ...announcement } : a
+          a.id === editingAnnouncement.id ? { ...editingAnnouncement, ...newAnnouncement } : a
         )
       );
     } else {
       // Add new announcement
-      setAnnouncements([...announcements, { id: Date.now(), ...announcement }]);
+      setAnnouncements([...announcements, { id: Date.now(), ...newAnnouncement }]);
     }
-    setModalOpen(false);
+    setIsOverlayVisible(false);
   };
 
   return (
@@ -78,15 +105,9 @@ const AnnouncementsPage = () => {
             <button className="edit-btn" onClick={handleAdd}>
               Add Announcement
             </button>
-            {modalOpen && (
-          <AnnouncementModal
-            announcement={editingAnnouncement}
-            onSave={handleSave}
-            onClose={() => setModalOpen(false)}
-          />
-        )}
           </div>
         </div>
+        <div>
         <table className="table">
           <thead>
             <tr>
@@ -110,7 +131,10 @@ const AnnouncementsPage = () => {
                     <button className="edit-button" onClick={() => handleEdit(announcement)}>
                       Edit
                     </button>
-                    <button className="delete-button" onClick={() => handleDelete(announcement.id)}>
+                    <button
+                      className="delete-button"
+                      onClick={() => handleDeleteRequest(announcement.id)}
+                    >
                       Delete
                     </button>
                   </td>
@@ -118,7 +142,67 @@ const AnnouncementsPage = () => {
               ))}
           </tbody>
         </table>
+        </div>
 
+        {/* Full-Page Overlay for Adding/Editing Announcement */}
+        {isOverlayVisible && (
+          <div className="overlay">
+            <div className="overlay-content">
+              <button className="close-button" onClick={() => setIsOverlayVisible(false)}>
+                ✖
+              </button>
+              <h2>{editingAnnouncement ? 'Edit Announcement' : 'Add Announcement'}</h2>
+              <form>
+                <label>
+                  Title:
+                  <input
+                    type="text"
+                    name="title"
+                    value={newAnnouncement.title}
+                    onChange={handleInputChange}
+                    required
+                  />
+                </label>
+                <label>
+                  Description:
+                  <textarea
+                    name="description"
+                    value={newAnnouncement.description}
+                    onChange={handleInputChange}
+                    required
+                  ></textarea>
+                </label>
+                <label>
+                  Date:
+                  <input
+                    type="date"
+                    name="date"
+                    value={newAnnouncement.date}
+                    onChange={handleInputChange}
+                    required
+                  />
+                </label>
+              </form>
+              <div className="form-actions">
+                <button className="primary-button" onClick={handleSave}>
+                  Save
+                </button>
+                <button className="secondary-button" onClick={() => setIsOverlayVisible(false)}>
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Warning Overlay for Deleting Announcement */}
+        {warningOverlayVisible && (
+          <WarningOverlay
+            message="Are you sure you want to delete this announcement?"
+            onConfirm={handleDeleteConfirm}
+            onCancel={handleDeleteCancel}
+          />
+        )}
       </div>
     </>
   );

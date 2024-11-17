@@ -4,6 +4,7 @@ import AdminNavbar from '../../components/AdminNavbar';
 import '../../styles/Styles.css';
 import Calendar from 'react-calendar';
 import DashboardAnnouncements from '../../components/DashboardAnnouncements.js'; // Import Announcements component
+import { Link } from 'react-router-dom';
 
 const AdminName = "Ammar";
 
@@ -29,51 +30,94 @@ const AdminDashboard = () => {
     },
   ]);
 
+  const recentActivity = [
+    "John Doe added a new course: React Basics",
+    "Jane Smith registered as a Trainee",
+    "System Maintenance announcement created",
+  ];
+
+  const upcomingEvents = [
+    "React Basics course starts on 2024-11-20",
+    "Data Science course starts on 2024-11-25",
+  ];
+
   return (
     <>
       <AdminNavbar />
       <div className="ViewPage">
+        {/* Welcome Section */}
         <section className="welcome-section">
           <h2>Welcome, {AdminName}!</h2>
+          <p>Here's an overview of the platform at a glance.</p>
         </section>
 
-        {/* Information Section */}
+        {/* Quick Insights Section */}
+        <section className="quick-insights">
+          <div className="insight-card">
+            <h2>Total Trainers</h2>
+            <p>20</p>
+          </div>
+          <div className="insight-card">
+            <h2>Total Trainees</h2>
+            <p>120</p>
+          </div>
+          <div className="insight-card">
+            <h2>Active Courses</h2>
+            <p>15</p>
+          </div>
+          <div className="insight-card">
+            <h2>Monthly Revenue</h2>
+            <p>$5,000</p>
+          </div>
+        </section>
+
+        {/* Announcements and Calendar */}
         <section className="info-section">
           {/* Announcements Div */}
           <div className="info-box">
+            <h2>Announcements</h2>
             <DashboardAnnouncements announcements={announcements} />
+            <Link to="/Admin/Announcements" className="view-all-link">View All Announcements</Link>
           </div>
 
           {/* Calendar Section */}
           <div className="info-box">
-            <h3>Calendar</h3>
-            <div className='post-card'>
-              <Calendar
-                style={{ color: '#56acbb', backgroundColor: '#56acbb', borderRadius: '8px', padding: '10px' }}
-              />
+            <h2>Calendar</h2>
+            <div className="calendar-container">
+              <Calendar />
             </div>
           </div>
         </section>
 
-        <div className="dashboard-container">
-          {/* Reusing card styles from styles.css */}
-          <div className="dashboard-card">
-            <h2>Active Users</h2>
-            <p>Overview of all registered users</p>
+        {/* Recent Activity Section */}
+        <section className="activity-section">
+          <h2>Recent Activity</h2>
+          <ul className="activity-feed">
+            {recentActivity.map((activity, index) => (
+              <li key={index}>{activity}</li>
+            ))}
+          </ul>
+        </section>
+
+        {/* Upcoming Events Section */}
+        <section className="upcoming-events-section">
+          <ul className="info-box">
+          <h2>Upcoming Events</h2>
+            {upcomingEvents.map((event, index) => (
+              <li key={index}>{event}</li>
+            ))}
+          </ul>
+        </section>
+
+        {/* Quick Actions Section */}
+        <section className="quick-actions-section">
+          <h2>Quick Actions</h2>
+          <div className="quick-actions">
+            <Link to="/Admin/CourseManagement" className="action-btn">Add New Course</Link>
+            <Link to="/Admin/Reports" className="action-btn">View Reports</Link>
+            <Link to="/Admin/Users" className="action-btn">Manage Users</Link>
           </div>
-          <div className="dashboard-card">
-            <h2>New Messages</h2>
-            <p>Messages from trainees and trainers</p>
-          </div>
-          <div className="dashboard-card">
-            <h2>Courses</h2>
-            <p>Manage available courses</p>
-          </div>
-          <div className="dashboard-card">
-            <h2>Recent Activity</h2>
-            <p>View the latest user actions</p>
-          </div>
-        </div>
+        </section>
       </div>
     </>
   );

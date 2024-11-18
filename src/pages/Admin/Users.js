@@ -39,7 +39,7 @@ const UsersPage = () => {
   return (
     <>
       <AdminNavbar />
-      <div className="viewPage">
+      <div className="ViewPage">
         <h1>Users</h1>
         <table className="table">
           <thead>

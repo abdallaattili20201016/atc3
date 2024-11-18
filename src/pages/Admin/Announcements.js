@@ -91,7 +91,7 @@ const AnnouncementsPage = () => {
   return (
     <>
       <AdminNavbar />
-      <div className="ViewPage">
+      <div className="ViewPage announcPage" >
         <h1>Announcements</h1>
         <div className="info-section">
           <div className="info-box">
@@ -108,40 +108,40 @@ const AnnouncementsPage = () => {
           </div>
         </div>
         <div>
-        <table className="table">
-          <thead>
-            <tr>
-              <th>Title</th>
-              <th>Description</th>
-              <th>Date</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {announcements
-              .filter((announcement) =>
-                announcement.title.toLowerCase().includes(filter.toLowerCase())
-              )
-              .map((announcement) => (
-                <tr key={announcement.id}>
-                  <td>{announcement.title}</td>
-                  <td>{announcement.description}</td>
-                  <td>{announcement.date}</td>
-                  <td>
-                    <button className="edit-button" onClick={() => handleEdit(announcement)}>
-                      Edit
-                    </button>
-                    <button
-                      className="delete-button"
-                      onClick={() => handleDeleteRequest(announcement.id)}
-                    >
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-              ))}
-          </tbody>
-        </table>
+          <table className="annTable">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Date</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {announcements
+                .filter((announcement) =>
+                  announcement.title.toLowerCase().includes(filter.toLowerCase())
+                )
+                .map((announcement) => (
+                  <tr key={announcement.id}>
+                    <td>{announcement.title}</td>
+                    <td>{announcement.description}</td>
+                    <td>{announcement.date}</td>
+                    <td>
+                      <button className="edit-button" onClick={() => handleEdit(announcement)}>
+                        Edit
+                      </button>
+                      <button
+                        className="delete-button"
+                        onClick={() => handleDeleteRequest(announcement.id)}
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
         </div>
 
         {/* Full-Page Overlay for Adding/Editing Announcement */}

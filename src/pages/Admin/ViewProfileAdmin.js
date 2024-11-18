@@ -29,7 +29,7 @@ const ViewProfile = () => {
     return (
         <>
             <AdminNavbar />
-            <div className="viewPage">
+            <div className="ViewPage">
                 <div className="profile-content">
                     <div className="user-info">
                         <h3>Personal Info</h3>

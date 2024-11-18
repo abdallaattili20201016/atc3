@@ -80,7 +80,7 @@ const AdminDashboard = () => {
 
           {/* Calendar Section */}
           <div className="calendar-container">
-            <h2>Calendar</h2>
+            {/* <h2>Calendar</h2> */}
             <div className="react-calendar">
               <Calendar />
             </div>
@@ -90,13 +90,13 @@ const AdminDashboard = () => {
         {/* Recent Activity Section */}
         <div className="posts-container">
           <h2>Recent Activity</h2>
-          <div className="information">
+          <div >
             {recentActivity.map((activity, index) => (
-              <h4>
+              <span class="information">
                 <li key={index}>
                   <p>{activity}</p>
                 </li>
-              </h4>
+              </span>
             ))}
           </div>
         </div>

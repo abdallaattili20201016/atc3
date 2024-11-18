@@ -77,7 +77,7 @@ const CourseManagement = () => {
   return (
     <>
       <AdminNavbar />
-      <div className="viewPage">
+      <div className="ViewPage">
         <h1>Course Management</h1>
         <div className="actions">
           <input

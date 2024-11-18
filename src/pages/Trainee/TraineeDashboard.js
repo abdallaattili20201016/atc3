@@ -64,7 +64,7 @@ const TraineeDashboard = () => {
                         
                     </div>
                     <div className="info-box">
-                        <h3>calendar</h3>
+                        {/* <h3>calendar</h3> */}
                         <div className='post-card'>
                             {  <Calendar
                                 style={{color: '#56acbb' , backgroundColor: '#56acbb', borderRadius: '8px', padding: '10px' }}

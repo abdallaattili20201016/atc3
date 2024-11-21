@@ -1,5 +1,6 @@
+// src/pages/Admin/AnnouncementsPage.js
 import React, { useState } from 'react';
-import AdminNavbar from '../../components/AdminNavbar';
+import TrainerNavbar from '../../components/TrainerNavbar';
 import WarningOverlay from '../../components/WarningOverlay';
 import '../../styles/Styles.css';
 
@@ -7,21 +8,21 @@ const AnnouncementsPage = () => {
   const [announcements, setAnnouncements] = useState([
     {
       id: 1,
-      title: 'System Maintenance Scheduled',
-      description: 'The system will be down on Nov 20 for 2 hours.',
-      date: '2024-11-20',
+      title: "System Maintenance Scheduled",
+      description: "The system will be down on Nov 20 for 2 hours.",
+      date: "2024-11-20",
     },
     {
       id: 2,
-      title: 'New Course Available',
-      description: 'Enroll now for the Data Science course starting Nov 25.',
-      date: '2024-11-18',
+      title: "New Course Available: Data Science",
+      description: "Enroll now for the Data Science course starting Nov 25.",
+      date: "2024-11-18",
     },
     {
       id: 3,
-      title: 'Important Deadline',
-      description: 'Register before Nov 16 to secure your seat.',
-      date: '2024-11-16',
+      title: "Important Deadline: Registration Ends",
+      description: "Register before Nov 16 to secure your seat.",
+      date: "2024-11-16",
     },
   ]);
 
@@ -34,36 +35,44 @@ const AnnouncementsPage = () => {
     date: '',
   });
 
+  /*** WarningOverlay State and Handlers (GROUPED) ***/
   const [warningOverlayVisible, setWarningOverlayVisible] = useState(false);
   const [announcementToDelete, setAnnouncementToDelete] = useState(null);
 
-  // Handle input changes with validation for letters and spaces only
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    if (name === 'title' ) {
-      if (/^[a-zA-Z\s]*$/.test(value) || value === '') {
-        setNewAnnouncement({ ...newAnnouncement, [name]: value });
-      }
-    } else {
-      setNewAnnouncement({ ...newAnnouncement, [name]: value });
-    }
+  const handleDeleteRequest = (announcementId) => {
+    setAnnouncementToDelete(announcementId);
+    setWarningOverlayVisible(true);
   };
 
-  // Open Add Announcement overlay
+  const handleDeleteConfirm = () => {
+    setAnnouncements(announcements.filter((a) => a.id !== announcementToDelete));
+    setWarningOverlayVisible(false);
+    setAnnouncementToDelete(null);
+  };
+
+  const handleDeleteCancel = () => {
+    setWarningOverlayVisible(false);
+    setAnnouncementToDelete(null);
+  };
+  /*** End WarningOverlay State and Handlers ***/
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setNewAnnouncement({ ...newAnnouncement, [name]: value });
+  };
+
   const handleAdd = () => {
     setEditingAnnouncement(null);
     setNewAnnouncement({ title: '', description: '', date: '' });
     setIsOverlayVisible(true);
   };
 
-  // Open Edit Announcement overlay
   const handleEdit = (announcement) => {
     setEditingAnnouncement(announcement);
     setNewAnnouncement(announcement);
     setIsOverlayVisible(true);
   };
 
-  // Save new or edited announcement
   const handleSave = () => {
     if (editingAnnouncement) {
       // Update existing announcement
@@ -79,29 +88,10 @@ const AnnouncementsPage = () => {
     setIsOverlayVisible(false);
   };
 
-  // Handle delete request
-  const handleDeleteRequest = (announcementId) => {
-    setAnnouncementToDelete(announcementId);
-    setWarningOverlayVisible(true);
-  };
-
-  // Confirm delete
-  const handleDeleteConfirm = () => {
-    setAnnouncements(announcements.filter((a) => a.id !== announcementToDelete));
-    setWarningOverlayVisible(false);
-    setAnnouncementToDelete(null);
-  };
-
-  // Cancel delete
-  const handleDeleteCancel = () => {
-    setWarningOverlayVisible(false);
-    setAnnouncementToDelete(null);
-  };
-
   return (
     <>
-      <AdminNavbar />
-      <div className="ViewPage announcPage">
+      <TrainerNavbar />
+      <div className="ViewPage announcPage" >
         <h1>Announcements</h1>
         <div className="info-section">
           <div className="info-box">

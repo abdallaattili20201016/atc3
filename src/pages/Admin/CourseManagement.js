@@ -45,23 +45,42 @@ const CourseManagement = () => {
     setWarningOverlayVisible(false);
     setCourseToDelete(null);
   };
-  /*** End WarningOverlay State and Handlers ***/
 
-  /*** Edit Overlay State and Handlers ***/
+  /*** Edit/Add Overlay State and Handlers ***/
   const [editOverlayVisible, setEditOverlayVisible] = useState(false);
   const [courseToEdit, setCourseToEdit] = useState(null);
+  const [isAddingCourse, setIsAddingCourse] = useState(false);
 
   const handleEditRequest = (course) => {
     setCourseToEdit(course);
     setEditOverlayVisible(true);
   };
 
+  const handleAddRequest = () => {
+    setCourseToEdit({
+      id: Date.now(),
+      name: "",
+      trainer: "",
+      startDate: "",
+      endDate: "",
+      status: "Active",
+      students: 0,
+    });
+    setIsAddingCourse(true);
+    setEditOverlayVisible(true);
+  };
+
   const handleEditSave = (updatedCourse) => {
-    setCourses(
-      courses.map((course) =>
-        course.id === courseToEdit.id ? { ...courseToEdit, ...updatedCourse } : course
-      )
-    );
+    if (isAddingCourse) {
+      setCourses([...courses, updatedCourse]);
+      setIsAddingCourse(false);
+    } else {
+      setCourses(
+        courses.map((course) =>
+          course.id === courseToEdit.id ? { ...courseToEdit, ...updatedCourse } : course
+        )
+      );
+    }
     setEditOverlayVisible(false);
     setCourseToEdit(null);
   };
@@ -69,9 +88,10 @@ const CourseManagement = () => {
   const handleEditCancel = () => {
     setEditOverlayVisible(false);
     setCourseToEdit(null);
+    setIsAddingCourse(false);
   };
-  /*** End Edit Overlay State and Handlers ***/
 
+  /*** Filter State ***/
   const [filter, setFilter] = useState("");
 
   return (
@@ -86,6 +106,9 @@ const CourseManagement = () => {
             value={filter}
             onChange={(e) => setFilter(e.target.value)}
           />
+          <button className="edit-btn" onClick={handleAddRequest}>
+            Add Course
+          </button>
         </div>
         <table className="courses-table">
           <thead>
@@ -95,6 +118,7 @@ const CourseManagement = () => {
               <th>Start Date</th>
               <th>End Date</th>
               <th>Status</th>
+              <th>Students</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -110,6 +134,7 @@ const CourseManagement = () => {
                   <td>{course.startDate}</td>
                   <td>{course.endDate}</td>
                   <td>{course.status}</td>
+                  <td>{course.students}</td>
                   <td>
                     <button onClick={() => handleEditRequest(course)}>Edit</button>
                     <button onClick={() => handleDeleteRequest(course.id)}>
@@ -130,14 +155,14 @@ const CourseManagement = () => {
           />
         )}
 
-        {/* Edit Overlay */}
+        {/* Edit/Add Overlay */}
         {editOverlayVisible && (
           <div className="overlay">
             <div className="overlay-content">
               <button className="close-button" onClick={handleEditCancel}>
                 ✖
               </button>
-              <h2>Edit Course</h2>
+              <h2>{isAddingCourse ? "Add Course" : "Edit Course"}</h2>
               <form>
                 <label>
                   Name:

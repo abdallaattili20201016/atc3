@@ -2,9 +2,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../../styles/Styles.css';
-import AdminNavbar from '../../components/AdminNavbar';
+import TrainerNavbar from '../../components/TrainerNavbar';
 
-const ViewProfileAdmin = () => {
+const ViewProfile = () => {
     const [editMode, setEditMode] = useState(false);
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
@@ -26,25 +26,9 @@ const ViewProfileAdmin = () => {
     };
     const handleCancel = () => setEditMode(false);
 
-    const handleNameChange = (e) => {
-        const value = e.target.value;
-        // Only allow letters and spaces
-        if (/^[a-zA-Z\s]*$/.test(value)) {
-            setName(value);
-        }
-    };
-
-    const handlePhoneChange = (e) => {
-        const value = e.target.value;
-        // Only allow digits and ensure it doesn't exceed 13 characters
-        if (/^\d{0,12}$/.test(value.replace(/[^0-9]/g, ''))) {
-            setPhone(value);
-        }
-    };
-
     return (
         <>
-            <AdminNavbar />
+            <TrainerNavbar />
             <div className="ViewPage">
                 <div className="profile-content">
                     <div className="user-info">
@@ -56,7 +40,7 @@ const ViewProfileAdmin = () => {
                                 type="text" 
                                 className="profileInput" 
                                 value={name} 
-                                onChange={handleNameChange} 
+                                onChange={(e) => setName(e.target.value)} 
                             />
                         ) : (
                             <span>{name}</span>
@@ -73,18 +57,21 @@ const ViewProfileAdmin = () => {
                             <span>{email}</span>
                         )}</p>
 
+                       
+
                         <p><strong>Phone:</strong> {editMode ? (
                             <input 
                                 type="text" 
                                 className="profileInput" 
+                                placeholder={phone} 
                                 value={phone} 
-                                onChange={handlePhoneChange} 
+                                onChange={(e) => setPhone(e.target.value)} 
                             />
                         ) : (
                             <span>{phone}</span>
                         )}</p>
 
-                        <p><strong>Address:</strong> {editMode ? (
+                            <p><strong>Address:</strong> {editMode ? (
                             <select 
                                 className="profileInput" 
                                 value={address} 
@@ -125,5 +112,4 @@ const ViewProfileAdmin = () => {
     );
 };
 
-
-export default ViewProfileAdmin;
+export default ViewProfile;

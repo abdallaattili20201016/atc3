@@ -193,7 +193,7 @@
 }
 
 .chat-history {
-  width: calc(100% - 20px);
+  width: calc(100% - 22px);
   height: 400px;
   background: #ffffff;
   padding: 20px;
@@ -258,6 +258,7 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  width: 100px;
 }
 
 .send-button:hover {
@@ -265,5 +266,5 @@
 }
 
 .chatArea {
-  width: 80%;
+  width: 50%;
 }

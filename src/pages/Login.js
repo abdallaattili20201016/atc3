@@ -18,7 +18,7 @@ const Login = () => {
         } else if (username.startsWith('2')) {
             navigate('/dashboard'); // Redirect to trainee dashboard
         } else if (username.startsWith('3')) {
-            navigate('/trainer-dashboard'); // Redirect to trainer dashboard
+            navigate('/Trainer/TrainerDashboard'); // Redirect to trainer dashboard
         } else {
             alert('Invalid username prefix. Please enter a correct username.');
         }

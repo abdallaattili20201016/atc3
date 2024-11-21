@@ -416,6 +416,7 @@ input {
     top: 5%;
     bottom: 5%;
     width: -webkit-fill-available;
+    /* width: 78%; */
 }
 
 .dashboard-container {
@@ -1387,3 +1388,37 @@ i {
     color: #1a1f64 !important;
     font-weight: bold;
 }
+
+/* Hide navbar during printing */
+@media print {
+    .sideNav {
+      display: none;
+    }
+  
+    /* Adjust the title size */
+    h1 {
+      font-size: 2em;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+  
+    /* Center-align the table for better print formatting */
+    .table {
+      margin: 0 auto;
+      width: 90%;
+      border-collapse: collapse;
+    }
+  
+    .table th,
+    .table td {
+      border: 1px solid #000;
+      padding: 8px;
+      text-align: left;
+    }
+  
+    /* Hide unnecessary buttons and filters during print */
+    .filters-section,
+    .edit-btn {
+      display: none;
+    }
+  }

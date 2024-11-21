@@ -2,7 +2,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import routes from './routes'; // Import routes from routes.js
-import Dashboard from './pages/Dashboard'; // Import your Dashboard component
+import Dashboard from './pages/Trainee/TraineeDashboard';
 
 const App = () => {
   return (

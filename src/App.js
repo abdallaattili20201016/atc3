@@ -5,7 +5,7 @@ import routes from './routes'; // Import routes from routes.js
 
 const App = () => {
   return (
-    <Router>
+    <Router basename="/atc3">
       <Routes>
         {routes.map((route, index) => (
           <Route key={index} path={route.path} element={route.element} />
